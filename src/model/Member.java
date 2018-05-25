@@ -28,8 +28,6 @@ public class Member {
         return "Member{" + "id=" + id + ", status=" + status + ", name=" + name + ", fc=" + fc + ", plateform=" + plateform + ", comment=" + comment + ", lodestoneNumber=" + lodestoneNumber + ", joinDate=" + joinDate + '}';
     }
 
- 
-
     public int getId() {
         return id;
     }
@@ -160,7 +158,5 @@ public class Member {
         }
         return true;
     }
-
-    
 
 }

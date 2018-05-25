@@ -114,13 +114,13 @@ public class UserDao {
 
         return user;
     }
-    
+
     public void delete(User user) throws SQLException {
         Connection con = Database.getConnection();
         String sql = "DELETE FROM user WHERE id = ?";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, user.getId());
-        
+
         stmt.executeUpdate();
         stmt.close();
         con.close();

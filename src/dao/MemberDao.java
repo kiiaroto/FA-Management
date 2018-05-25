@@ -20,9 +20,9 @@ import model.Member;
  * @author SR
  */
 public class MemberDao {
-    
+
     public void add(Member member) throws SQLException {
-        
+
         Connection con = Database.getConnection();
         String sql = "INSERT INTO member(id_status, name, free_company, plateform, comment, lodestone_number, join_date) VALUES"
                 + "(?, ?, ?, ?, ?, ?, ?)";
@@ -34,21 +34,21 @@ public class MemberDao {
         stmt.setString(5, member.getComment());
         stmt.setString(6, member.getLodestoneNumber());
         stmt.setTimestamp(7, Timestamp.valueOf(member.getJoinDate().atTime(0, 0)));
-        
+
         stmt.executeUpdate();
         stmt.close();
         con.close();
     }
-    
+
     public List<Member> findAll() throws SQLException {
         Connection con = Database.getConnection();
         String sql = "SELECT * FROM member ORDER BY id_status, id " + Database.SortOrder.ASC;
         Statement stmt = con.createStatement();
-        
+
         ResultSet rs = stmt.executeQuery(sql);
-        
+
         List<Member> memberList = new ArrayList<>();
-        
+
         while (rs.next()) {
             Member member = new Member(
                     rs.getInt("id"),
@@ -59,22 +59,22 @@ public class MemberDao {
                     rs.getString("comment"),
                     rs.getString("lodestone_number"),
                     rs.getTimestamp("join_date").toLocalDateTime().toLocalDate());
-            
+
             memberList.add(member);
         }
-        
+
         stmt.close();
         con.close();
-        
+
         if (memberList.isEmpty()) {
             return null;
         } else {
             return memberList;
         }
     }
-    
+
     public void update(Member member) throws SQLException {
-        
+
         Connection con = Database.getConnection();
         String sql = "UPDATE member SET id_status = ?, name = ?, free_company = ?, plateform = ?, comment = ?, lodestone_number = ? WHERE id = ?";
         PreparedStatement stmt = con.prepareStatement(sql);
@@ -85,18 +85,18 @@ public class MemberDao {
         stmt.setString(5, member.getComment());
         stmt.setString(6, member.getLodestoneNumber());
         stmt.setInt(7, member.getId());
-        
+
         stmt.executeUpdate();
         stmt.close();
         con.close();
     }
-    
+
     public void delete(Member member) throws SQLException {
         Connection con = Database.getConnection();
         String sql = "DELETE FROM member WHERE id = ?";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, member.getId());
-        
+
         stmt.executeUpdate();
         stmt.close();
         con.close();

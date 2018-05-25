@@ -16,16 +16,16 @@ import model.Rank;
  * @author SR
  */
 public class RankDao {
-    
+
     public void findAll() throws SQLException {
         Connection con = Database.getConnection();
         String sql = "SELECT * FROM rank ORDER BY id " + Database.SortOrder.ASC;
-        
+
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
-        while(rs.next()) {
+        while (rs.next()) {
             Rank.getValues().put(rs.getInt("id"), rs.getString("libelle"));
         }
     }
-    
+
 }

@@ -69,7 +69,6 @@ public class ManagementWindow extends javax.swing.JFrame {
         }
         TableColumn col = jTable2.getColumnModel().getColumn(0);
         col.setMaxWidth(32);
-        
 
         jScrollPane2.setViewportView(jTable2);
 
@@ -94,7 +93,7 @@ public class ManagementWindow extends javax.swing.JFrame {
             int row = jTable2.getSelectedRow();
             User user = new User(
                     Integer.parseInt(tableModel.getValueAt(row, 0).toString()),
-                   Rank.getKey(tableModel.getValueAt(row, 1).toString()),
+                    Rank.getKey(tableModel.getValueAt(row, 1).toString()),
                     tableModel.getValueAt(row, 2).toString(),
                     tableModel.getValueAt(row, 3).toString(),
                     null);

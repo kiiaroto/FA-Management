@@ -16,16 +16,16 @@ import model.Status;
  * @author SR
  */
 public class StatusDao {
-    
+
     public void findAll() throws SQLException {
         Connection con = Database.getConnection();
         String sql = "SELECT * FROM status ORDER BY id " + Database.SortOrder.ASC;
-        
+
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
-        while(rs.next()) {
+        while (rs.next()) {
             Status.getValues().put(rs.getInt("id"), rs.getString("libelle"));
         }
     }
-    
+
 }

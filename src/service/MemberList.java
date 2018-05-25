@@ -15,22 +15,22 @@ import model.Member;
 public class MemberList {
 
     private static HashMap<Integer, Member> memberMap;
-    
+
     public void addMember(Member member) {
         memberMap.put(member.getId(), member);
     }
-    
+
     public void deleteMember(Member member) {
         memberMap.remove(member.getId());
     }
-    
+
     public Member findById(int id) {
         return memberMap.get(id);
     }
-    
+
     public Member findByName(String name) {
         for (Integer i : memberMap.keySet()) {
-            if (memberMap.get(i).getName().equals(name)){
+            if (memberMap.get(i).getName().equals(name)) {
                 return memberMap.get(i);
             }
         }

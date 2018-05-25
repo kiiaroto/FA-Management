@@ -10,7 +10,6 @@ package model;
  * @author SR
  */
 public class DetailedMember {
-    
-    
+
     // Create a class to contain all the info from JSoup / Lodestone
 }

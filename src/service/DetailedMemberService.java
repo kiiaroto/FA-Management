@@ -10,7 +10,6 @@ package service;
  * @author SR
  */
 public class DetailedMemberService {
-    
+
     // Create the method to build the DetailedMember and then send it to the view
-    
 }

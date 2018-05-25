@@ -10,8 +10,7 @@ package service;
  * @author SR
  */
 public class Password {
-    
+
     // Put method like verify password for the connection
     // and change password & more about password
-    
 }
