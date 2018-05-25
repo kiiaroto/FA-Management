@@ -41,7 +41,7 @@ public class UserDao {
         con.close();
     }
 
-    public User findByEmail(String email, char[] password) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
+    public User findByEmail(String email) throws SQLException {
 
         Connection con = Database.getConnection();
         String sql = "SELECT * FROM user WHERE email = ?";
@@ -49,25 +49,19 @@ public class UserDao {
         stmt.setString(1, email);
 
         ResultSet rs = stmt.executeQuery();
+        User user = null;
 
         if (rs.next()) {
-            User user = new User(
+            user = new User(
                     rs.getInt("id"),
                     rs.getInt("id_rank"),
                     rs.getString("email"),
                     rs.getString("name"),
                     rs.getString("password"));
-
-            stmt.close();
-            con.close();
-
-            if (PasswordEncrypter.validatePassword(password, user.getPassword())) {
-                return user;
-            } else {
-                return null;
-            }
         }
-        return null;
+        stmt.close();
+        con.close();
+        return user;
     }
 
     public List<User> findAll() throws SQLException {
@@ -97,17 +91,16 @@ public class UserDao {
         }
     }
 
-    public User updatePassword(User user, char[] password) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
+    public User updatePassword(User user, String password) throws SQLException {
         Connection con = Database.getConnection();
         String sql = "UPDATE user SET password = ? WHERE id = ?";
-        String cryptedPassword = PasswordEncrypter.generateStorngPasswordHash(password);
         PreparedStatement stmt = con.prepareStatement(sql);
-        stmt.setString(1, cryptedPassword);
+        stmt.setString(1, password);
         stmt.setInt(2, user.getId());
 
         stmt.executeUpdate();
 
-        user.setPassword(cryptedPassword);
+        user.setPassword(password);
 
         stmt.close();
         con.close();
