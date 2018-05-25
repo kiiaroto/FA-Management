@@ -22,7 +22,7 @@ public class ManagementWindow extends javax.swing.JFrame {
     /**
      * Creates new form Management
      */
-    public ManagementWindow() throws SQLException {
+    public ManagementWindow(User user) throws SQLException {
         UserDao userDao = new UserDao();
         List<User> userList = userDao.findAll();
         initComponents(userList);
