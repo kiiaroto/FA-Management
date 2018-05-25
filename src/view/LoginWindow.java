@@ -12,7 +12,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.User;
+import service.PasswordManager;
 
 /**
  *
@@ -197,13 +199,17 @@ public class LoginWindow extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             // TODO add your handling code here:
-
-            String login1 = emailTextField.getText();
-            char[] login2 = passwordField.getPassword();
-            UserDao userDao = new UserDao();
-            User user1 = userDao.findByEmail(login1, login2);
-
-            System.out.println(user1);
+            PasswordManager pass = new PasswordManager();
+            User user = pass.verifyPassword(emailTextField.getText(), passwordField.getPassword());
+            if (user != null) {
+                new ManagementWindow(user).setVisible(true);
+                this.dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(jButton1, "Invalid Email or password !", "Connection error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
