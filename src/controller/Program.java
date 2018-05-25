@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import model.Member;
 import service.MemberList;
 import model.User;
+import service.PasswordManager;
 import tools.PasswordEncrypter;
 import view.LoginWindow;
 import view.ManagementWindow;
@@ -50,20 +51,16 @@ public class Program {
             System.out.println(LocalDate.now());
 
             UserDao userDao = new UserDao();
-            try {
-                User user0 = new User(24, 2, "insertmail@gmail.com", "insertName", PasswordEncrypter.generateStorngPasswordHash("testpassword".toCharArray()));
-                System.out.println("creation done");
-                //userDao.add(user0);
-                user0 = userDao.updatePassword(user0, "passwor".toCharArray());
-                System.out.println("update done");
-                System.out.println("user0 = " + user0);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Program.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            User user0 = new User(24, 2, "insertmail@gmail.com", "insertName", PasswordEncrypter.generateStorngPasswordHash("testpassword".toCharArray()));
+            System.out.println("creation done");
+            //userDao.add(user0);
+            PasswordManager passManager = new PasswordManager();
+            user0 = passManager.changePassword(user0, "azer".toCharArray());
+            System.out.println("update done");
+            System.out.println("user0 = " + user0);
 
             new LoginWindow().setVisible(true);
-            new ManagementWindow().setVisible(true);
+            new ManagementWindow(user0).setVisible(true);
 
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Program.class.getName()).log(Level.SEVERE, null, ex);
