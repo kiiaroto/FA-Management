@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.concurrent.ThreadLocalRandom;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -19,7 +20,7 @@ import javax.crypto.spec.PBEKeySpec;
 public class PasswordEncrypter {
 
     public static String generateStorngPasswordHash(char[] password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        int iterations = 132624;
+        int iterations = ThreadLocalRandom.current().nextInt(100000, 150000);
         char[] chars = password;
         byte[] salt = getSalt();
 
